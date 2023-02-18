@@ -8,7 +8,7 @@
 </script>
 
 <style scoped>
-/* 
+
 * {
   margin: 0;
   padding: 0;
@@ -19,8 +19,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color:#8a0883;
-} */
+  
+}
 
 
 /* .btnLogOut{

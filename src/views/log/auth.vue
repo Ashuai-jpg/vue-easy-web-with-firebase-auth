@@ -8,7 +8,7 @@
                 <input type="password" placeholder="Password" v-model="login_form.password" />
                 <input type="submit" value="Sign In" />
             </form>
-            <button type="button" @click="swapLog" class="swap">Go Register</button>
+            <button type="button" @click="log_register" class="swap">Go Register</button>
             
         </section>
             
@@ -36,13 +36,13 @@
 
 <script setup>
 // import { nextTick } from 'process';
-import { ref ,computed} from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 const login_title = ref('Login')
 const login_form = ref({});
 const register_form = ref({});
 const store = useStore();
-const isLog = ref(true)
+const isLog = ref(false)
 
 
 

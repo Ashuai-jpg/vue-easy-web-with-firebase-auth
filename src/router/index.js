@@ -31,10 +31,7 @@ const routes = [
         path: '1-childthree',
         component: () => import('../views/home/VidChildThree.vue')
       },
-      {
-        path: '2-childthone',
-        component: () => import('../views/home/IMap.vue')
-      },
+      
 
     ],
     meta: { requiresAuth: true }
@@ -57,6 +54,10 @@ const routes = [
       {
         path: 'githubsearch',
         component: ()=> import('../views/index/GithubSearch.vue')
+      },
+      {
+        path: 'imap',
+        component: () => import('../views/index/IMap.vue')
       },
     ],
     meta: { requiresAuth: true }

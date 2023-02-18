@@ -124,7 +124,7 @@ export default createStore({
     await  axios.get(`https://api.github.com/search/users?q=${paload.value}`).then(
         response => {
           console.log('Request success', response.data.items)
-         let rawusers = response.data.items.slice(0, 25)
+         let rawusers = response.data.items
          commit('SEARCH_USER', rawusers)
          
         },

@@ -47,18 +47,14 @@
                                 </el-icon>
                                 <span class="text nav-text">Github</span>
                             </RouterLink>
-                            <!-- <a href="#">
-                                    
-                                </a> -->
                         </li>
 
                         <li class="nav-link">
-                            <a href="#">
-                                <el-icon class="icon">
-                                    <Bell />
+                            <RouterLink to="/index/imap">
+                                <el-icon class="icon"><LocationInformation />
                                 </el-icon>
-                                <span class="text nav-text">Notifications</span>
-                            </a>
+                                <span class="text nav-text">IMap</span>
+                            </RouterLink>
                         </li>
 
                         <li class="nav-link">
@@ -123,7 +119,6 @@
         </nav>
 
         <section class="home">
-            <div class="text">Simple Vue Web</div>
             <router-view></router-view>
         </section>
 
@@ -132,7 +127,7 @@
 
 
 <script setup>
-import { Search, DataAnalysis, Bell, PieChart, Star, Wallet, SwitchButton, Moon, Sunny, ArrowRightBold, Tickets } from '@element-plus/icons-vue'
+import { Search, DataAnalysis, LocationInformation, PieChart, Star, Wallet, SwitchButton, Moon, Sunny, ArrowRightBold, Tickets } from '@element-plus/icons-vue'
 import { ref } from 'vue';
 const isClose = ref(false)
 const isDark = ref(false)
@@ -147,4 +142,13 @@ isDark.value = localIsDark !== null && localIsDark === 'true';
 
 </script>
 
-<style ></style>
+<style scoped>
+.sidebar{
+    position: fixed;
+}
+.home{
+    background-color: var(--main-color);
+    position:relative;
+    height: fit-content;
+}
+</style>

@@ -1,53 +1,55 @@
 <template>
     <main class="app">
-      <section class="greeting">
-          <h3 class="title">
-            How you doing, <input type="text" placeholder="You Name here" v-model="name"/>
-          </h3>
-      </section>
-      <section class="create-todo">
-        <h3>CREATE A TODO</h3>
-  
-  
-        <form @submit.prevent="addTodo">
-          <h4>What's on your todo list?</h4>
-          <input 
-            type="text" 
-            placeholder="e.g. Do exercise"
-            v-model="input_content"/>
-          <h4>Pick a  Category</h4>
-          <div class="options">
-  
-              <label >
-                <input 
-                type="radio" 
-                name="category"
-                value="business"
-                v-model="input_category">
-                <span class="bubble business"></span>
-                <div>Business</div>
-              </label>
-  
-              <label >
-                <input 
-                type="radio" 
-                name="category"
-                value="personal"
-                v-model="input_category">
-                <span class="bubble personal"></span>
-                <div>Personal</div>
-              </label>
-  
-              
-  
-          </div>
-          <input type="submit" value="Add todo" @keyup.enter="submit">
-        </form>
-  
-  
-      </section>
-      <section class="todo-list">
-        <h3>TODO LIST</h3>
+		<div class="fixed">
+
+			<section class="greeting">
+				<h3 class="title">
+				  How you doing, <input type="text" placeholder="You Name here" v-model="name"/>
+				</h3>
+			</section>
+			<section class="create-todo">
+			  <h3>CREATE A TODO</h3>
+		
+		
+			  <form @submit.prevent="addTodo">
+				<h4>What's on your todo list?</h4>
+				<input 
+				  type="text" 
+				  placeholder="e.g. Do exercise"
+				  v-model="input_content"/>
+				<h4>Pick a  Category</h4>
+				<div class="options">
+		
+					<label >
+					  <input 
+					  type="radio" 
+					  name="category"
+					  value="business"
+					  v-model="input_category">
+					  <span class="bubble business"></span>
+					  <div>Business</div>
+					</label>
+		
+					<label >
+					  <input 
+					  type="radio" 
+					  name="category"
+					  value="personal"
+					  v-model="input_category">
+					  <span class="bubble personal"></span>
+					  <div>Personal</div>
+					</label>
+		
+					
+		
+				</div>
+				<input type="submit" value="Add todo" @keyup.enter="submit">
+			  </form>
+		
+			</section>
+		</div>
+		<section class="todo-list">
+		  <h3>TODO LIST</h3>
         <div class="list">
             <div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
               <label >
@@ -142,14 +144,13 @@ input:not([type="radio"]):not([type="checkbox"]), button {
 	background: none;
 	cursor: initial;
 }
-
-/* body {
-	background: var(--light);
-	color: var(--dark);
-} */
+.fixed{
+	position: sticky;
+	top: 0;
+	background-color: var(--main-color);
+}
 
 section {
-	margin-top: 2rem;
 	margin-bottom: 2rem;
 	padding-left: 1.5rem;
 	padding-right: 1.5em;
@@ -160,9 +161,11 @@ h3 {
 	font-size: 1rem;
 	font-weight: 400;
 	margin-bottom: 0.5rem;
+	
 }
 
 h4 {
+	margin-top: 2rem;
 	color: var(--text-color);
 	font-size: 0.875rem;
 	font-weight: 700;

@@ -19,6 +19,9 @@
                 <p class='card-text'> {{ user.login.slice(0, 8) }} </p>
             </div>
         </div>
+        <footer class="footer">
+            <h3>This is a footer</h3>
+        </footer>
 </section>
 </template>
 
@@ -58,19 +61,17 @@ const state = reactive({
 //final version with vuex 
 function searchUsers() {
     if (keyword) {
+        store.state.users = []
         store.dispatch('searchUsers', keyword)
-
-        state.users = store.state.users
+        
         const fechAgain = setInterval(() => {
-
             state.users = store.state.users
             const user_lower = store.state.users[0].login.toLowerCase()
             const key_lower = keyword.value.toLowerCase()
-            console.log('ok?');
+        
             if (key_lower === user_lower) {
                 clearInterval(fechAgain)
             }
-            
         }, 1000)
     }
 
@@ -97,9 +98,12 @@ section {
 }
 
 /* title and search */
+
 .title {
+    text-shadow: 0 1px 3px var(--main-text);
     margin-bottom: 20px;
     font-size: 2rem;
+    text-align: center;
     color: var(--main-text);
 }
 
@@ -109,9 +113,16 @@ section {
 }
 
 .upwrap {
+    transition: var(--tran-05);
     display: inherit;
+    position: sticky;
+    top: 0;
     flex-direction: column;
-    margin-bottom: 10px;
+    border-bottom: 2px solid  var( --sidebar-color);
+    box-shadow: 0 2px 2px var( --sidebar-color) ;
+    margin: 5% 0 1% 0 ;
+    background-color: var(--main-color);
+    width: 100%;
 }
 
 .search {
@@ -144,14 +155,32 @@ section {
 
 }
 
+img:hover{
+    opacity: 0.5;
+}
 .card {
     display: inherit;
     flex-direction: column;
-    width: 180px;
+    width: 300px;
     height: 135px;
     align-items: center;
     justify-content: space-around;
     /* background-color: var(--primary-color-light); */
 
+}
+
+.footer{
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    text-shadow: 2px 2px 3px grey;
+    position: fixed;
+    bottom: 0;
+    border-top: 2px solid  var( --sidebar-color);
+    box-shadow: 0 2px 2px var( --sidebar-color) ;
+    background-color:  var(--main-color) ;
+    opacity: 0.8;
+    transition: var(--tran-05);
+    
 }
 </style>
