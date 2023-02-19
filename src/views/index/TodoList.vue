@@ -1,77 +1,69 @@
 <template>
-    <main class="app">
+	<main class="app">
 		<div class="fixed">
 
 			<section class="greeting">
 				<h3 class="title">
-				  How you doing, <input type="text" placeholder="You Name here" v-model="name"/>
+					How you doing, <input type="text" placeholder="You Name here" v-model="name" />
 				</h3>
 			</section>
 			<section class="create-todo">
-			  <h3>CREATE A TODO</h3>
-		
-		
-			  <form @submit.prevent="addTodo">
-				<h4>What's on your todo list?</h4>
-				<input 
-				  type="text" 
-				  placeholder="e.g. Do exercise"
-				  v-model="input_content"/>
-				<h4>Pick a  Category</h4>
-				<div class="options">
-		
-					<label >
-					  <input 
-					  type="radio" 
-					  name="category"
-					  value="business"
-					  v-model="input_category">
-					  <span class="bubble business"></span>
-					  <div>Business</div>
-					</label>
-		
-					<label >
-					  <input 
-					  type="radio" 
-					  name="category"
-					  value="personal"
-					  v-model="input_category">
-					  <span class="bubble personal"></span>
-					  <div>Personal</div>
-					</label>
-		
-					
-		
-				</div>
-				<input type="submit" value="Add todo" @keyup.enter="submit">
-			  </form>
-		
+				<h3>CREATE A TODO</h3>
+
+
+				<form @submit.prevent="addTodo">
+					<h4>What's on your todo list?</h4>
+					<input 
+					type="text" 
+					placeholder="e.g. Do exercise" 
+					v-model.lazy="input_content" 
+					:ref="input_area" />
+					<h4>Pick a Category</h4>
+					<div class="options">
+
+						<label>
+							<input type="radio" name="category" value="business" v-model="input_category">
+							<span class="bubble business"></span>
+							<div>Business</div>
+						</label>
+
+						<label>
+							<input type="radio" name="category" value="personal" v-model="input_category">
+							<span class="bubble personal"></span>
+							<div>Personal</div>
+						</label>
+
+
+
+					</div>
+					<input type="submit" value="Add todo" @keyup.enter="submit" >
+				</form>
+
 			</section>
 		</div>
 		<section class="todo-list">
-		  <h3>TODO LIST</h3>
-        <div class="list">
-            <div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
-              <label >
-  
-                <input type="checkbox" v-model="todo.done"/>
-                <span :class="`bubble ${todo.category }`"></span>
-              </label>
-  
-              <div class="todo-content">
-                  <input type="text" v-model="todo.content"/>
-              </div>
-  
-              <div class="actions">
-                  <button class="delete" @click="removeTodo(todo)" >Delete</button>
-              </div>
-            
-            </div>
-        </div>
-      </section>
-    </main>
-  
-  </template>
+			<h3>TODO LIST</h3>
+			<div class="list">
+				<div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
+					<label>
+
+						<input type="checkbox" v-model="todo.done" />
+						<span :class="`bubble ${todo.category}`"></span>
+					</label>
+
+					<div class="todo-content">
+						<input type="text" v-model="todo.content" />
+					</div>
+
+					<div class="actions">
+						<button class="delete" @click="removeTodo(todo)">Delete</button>
+					</div>
+
+				</div>
+			</div>
+		</section>
+	</main>
+</template>
 
 
 
@@ -84,52 +76,52 @@ const name = ref('')
 
 const input_content = ref('')
 const input_category = ref(null)
+const input_area = ref('')
 
 const todos_asc = computed(() => todos.value.sort((a, b) => {
-        return b.createAt - a.createAt
+	return b.createAt - a.createAt
 }))
 
-const addTodo = ()=>{
-  if(input_content.value.trim()=== ''|| input_category === null){
-    return
-  }
+const addTodo = () => {
+	if (input_content.value.trim() === '' || input_category === null) {
+		return
+	}
 
-  todos.value.push({
-    content: input_content.value,
-    category: input_category.value,
-    done: false,
-    createdAt: new Date().getTime(),
-  })
-  console.log(todos.value)//Check if data pushed
-  input_content.value= ''
-  input_category.value= null
+	todos.value.push({
+		content: input_content.value,
+		category: input_category.value,
+		done: false,
+		createdAt: new Date().getTime(),
+	})
+	console.log(todos.value)//Check if data pushed
+	input_content.value = ''
+	input_category.value = null
 }
 
-const removeTodo =  todo =>{
-  todos.value = todos.value.filter(t => t !== todo)
+const removeTodo = todo => {
+	todos.value = todos.value.filter(t => t !== todo)
 }
 
 
 // store the Name into localStorage everytime typed in
-watch(name, newVal=>{
-   window.localStorage.setItem('name', newVal)
+watch(name, newVal => {
+	window.localStorage.setItem('name', newVal)
 })
 
-watch(todos, newVal=>{
-  localStorage.setItem('todos',JSON.stringify(newVal))
-  
-}, {deep: true})
+watch(todos, newVal => {
+	localStorage.setItem('todos', JSON.stringify(newVal))
+
+}, { deep: true })
 
 
-onMounted(()=>{
-  name.value = localStorage.getItem('name') || ''
-  todos.value = JSON.parse(localStorage.getItem('todos')) || []
+onMounted(() => {
+	name.value = localStorage.getItem('name') || ''
+	todos.value = JSON.parse(localStorage.getItem('todos')) || []
 })
 </script>
 
 
 <style scoped>
-
 * {
 	margin: 0;
 	padding: 0;
@@ -137,17 +129,21 @@ onMounted(()=>{
 	font-family: 'montserrat', sans-serif;
 }
 
-input:not([type="radio"]):not([type="checkbox"]), button {
+input:not([type="radio"]):not([type="checkbox"]),
+button {
 	appearance: none;
 	border: none;
 	outline: none;
 	background: none;
 	cursor: initial;
 }
-.fixed{
+
+.fixed {
+	transition: var(--tran-05);
 	position: sticky;
 	top: 0;
 	background-color: var(--main-color);
+
 }
 
 section {
@@ -161,7 +157,7 @@ h3 {
 	font-size: 1rem;
 	font-weight: 400;
 	margin-bottom: 0.5rem;
-	
+
 }
 
 h4 {
@@ -194,7 +190,7 @@ h4 {
 	width: 100%;
 	font-size: 1.125rem;
 	padding: 1rem 1.5rem;
-	color: var( --text-color-option);
+	color: var(--text-color-option);
 	background-color: var(--div-color);
 	border-radius: 0.5rem;
 	box-shadow: var(--primary-color-light);
@@ -216,10 +212,10 @@ h4 {
 	align-items: center;
 	justify-content: center;
 	padding: 1.5rem;
-	background-color:var(--div-color);
+	background-color: var(--div-color);
 	border-radius: 0.5rem;
 	box-shadow: var(--primary-color-light);
-	cursor:pointer ;
+	cursor: pointer;
 }
 
 input[type="radio"],
@@ -260,7 +256,7 @@ input[type="checkbox"] {
 	box-shadow: var(--personal-glow);
 }
 
-input:checked ~ .bubble::after {
+input:checked~.bubble::after {
 	width: 10px;
 	height: 10px;
 	opacity: 1;
@@ -291,13 +287,13 @@ input:checked ~ .bubble::after {
 
 .todo-list .list {
 	margin: 1rem 0;
-} 
+}
 
 .todo-list .todo-item {
 	display: flex;
 	color: var(--text-color-option);
 	align-items: center;
-	background-color:var(--div-color);
+	background-color: var(--div-color);
 	padding: 1rem;
 	border-radius: 0.5rem;
 	box-shadow: var(--primary-color-light);
@@ -350,7 +346,5 @@ input:checked ~ .bubble::after {
 	text-decoration: line-through;
 	color: var(--grey);
 }
-
-
 </style>
 

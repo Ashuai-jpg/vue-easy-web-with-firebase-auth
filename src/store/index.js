@@ -1,6 +1,5 @@
 import { createStore } from 'vuex'
 import router from '../router'
-import axios from 'axios'
 import { auth } from '../firebase'
 import {
   createUserWithEmailAndPassword,
@@ -25,8 +24,8 @@ export default createStore({
       state.user = null
     },
 
-    SEARCH_USER(state, rawusers) {
-      state.users = rawusers
+    STORE_USERS(state, value) {
+      state.users = value
     }
 
   },
@@ -118,24 +117,7 @@ export default createStore({
     //     }
     //   })
     // },
-    
-   async searchUsers({ commit }, paload) {
-    let rawusers ={}
-    await  axios.get(`https://api.github.com/search/users?q=${paload.value}`).then(
-        response => {
-          console.log('Request success', response.data.items)
-         let rawusers = response.data.items
-         commit('SEARCH_USER', rawusers)
-         
-        },
-        error => {
-          console.log('Bad request', response.data)
-        }
-      )
-        
-      
-
-    }
+ 
 
   }
 })

@@ -4,9 +4,9 @@
 
             <h3 class="title">Search Github Users</h3>
             <div class="searchbar">
-                <input type="text" placeholder="Search..." v-model.lazy="keyword" class="search input"
+                <input type="text" placeholder="Press enter after input" v-model.lazy="keyword" class="search input"
                     @keydown.enter="searchUsers">&nbsp;
-                <button @click="searchUsers" class="search button ">Search</button>
+                <button @click="randomCol" class="search button "  :style="{ backgroundColor: ranCol }">Search</button>
                 <!-- <button @keydown.enter="state.count++">{{state.count}}</button> -->
             </div>
         </div>
@@ -29,54 +29,46 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useStore } from 'vuex';
-// import axios from 'axios'
+import axios from 'axios';
+
 
 
 const keyword = ref('')
+const ranCol = ref('var(--btn-color)')
 const store = useStore()
+let number = ref(1)
 const state = reactive({
     users: [],
     count: 0
 })
 
-
-
-
-
-
-// no vuex 
-// function searchUsers() {
-//     axios.get(`https://api.github.com/search/users?q=${keyword.value}`).then(
-//         response => {
-//             console.log('Request success', response.data.items)
-//             state.users = response.data.items.slice(0, 25)
-//         },
-//         error => {
-//             console.log('Bad request', response.data)
-//         }
-//     )
-// }
-
-
-//final version with vuex 
-function searchUsers() {
-    if (keyword) {
-        store.state.users = []
-        store.dispatch('searchUsers', keyword)
-        
-        const fechAgain = setInterval(() => {
-            state.users = store.state.users
-            const user_lower = store.state.users[0].login.toLowerCase()
-            const key_lower = keyword.value.toLowerCase()
-        
-            if (key_lower === user_lower) {
-                clearInterval(fechAgain)
-            }
-        }, 1000)
-    }
-
-
+// random color logic
+function random(number){
+    return Math.floor(Math.random()*(number+1))
 }
+
+function randomCol (){
+     ranCol.value = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')'
+}
+// 
+
+
+
+// search user logic
+async function searchUsers() {
+   await axios.get(`https://api.github.com/search/users?q=${keyword.value}`).then(
+        response => {
+            console.log('Request success', response.data.items)
+            state.users = response.data.items
+            store.commit('STORE_USERS', state.users.value)
+        },
+        error => {
+            console.log('Bad request', response.data)
+        }
+    )
+}
+
+
 
 
 
