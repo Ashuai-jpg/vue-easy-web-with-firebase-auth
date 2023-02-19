@@ -27,7 +27,7 @@
                         <el-icon class="icon">
                             <Search />
                         </el-icon>
-                        <input type="text" placeholder="Search...">
+                        <input type="text" placeholder="can't search now">
                     </li>
 
                     <ul class="menu-links">
