@@ -49,6 +49,16 @@
                             </RouterLink>
                         </li>
 
+                        
+                        <li class="nav-link">
+                            <router-link to="/index/photos">
+                                <el-icon class="icon">
+                                    <PieChart />
+                                </el-icon>
+                                <span class="text nav-text">Photos</span>
+                            </router-link>
+                        </li>
+                        
                         <li class="nav-link">
                             <RouterLink to="/index/imap">
                                 <el-icon class="icon"><LocationInformation />
@@ -56,16 +66,6 @@
                                 <span class="text nav-text">IMap</span>
                             </RouterLink>
                         </li>
-
-                        <li class="nav-link">
-                            <a href="#">
-                                <el-icon class="icon">
-                                    <PieChart />
-                                </el-icon>
-                                <span class="text nav-text">Analytics</span>
-                            </a>
-                        </li>
-
                         <li class="nav-link">
                             <a href="#">
                                 <el-icon class="icon">
@@ -137,6 +137,8 @@ const toggleDarkMode = () => {
     isDark.value = !isDark.value;
     localStorage.setItem('isDark', isDark.value);
 }
+
+
 let localIsDark = localStorage.getItem('isDark');
 isDark.value = localIsDark !== null && localIsDark === 'true';
 

@@ -59,6 +59,10 @@ const routes = [
         path: 'imap',
         component: () => import('../views/index/IMap.vue')
       },
+      {
+        path: 'photos',
+        component: () => import('../views/index/Photos.vue')
+      },
     ],
     meta: { requiresAuth: true }
   }

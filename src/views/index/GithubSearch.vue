@@ -27,7 +27,7 @@
 
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive ,onMounted,watch} from 'vue'
 import { useStore } from 'vuex';
 import axios from 'axios';
 
@@ -51,6 +51,8 @@ function randomCol (){
      ranCol.value = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')'
 }
 // 
+
+
 
 
 
