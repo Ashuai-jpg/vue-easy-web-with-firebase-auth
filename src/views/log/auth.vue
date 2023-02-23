@@ -1,79 +1,87 @@
 <template >
-    <main class="login">
-        <section class="forms" v-if="isLog">
-            
-            <form class="login" @submit.prevent="login" >
-                <h2>Login</h2>
-                <input type="email" placeholder="Email address" v-model="login_form.email" />
-                <input type="password" placeholder="Password" v-model="login_form.password" />
-                <input type="submit" value="Sign In" />
-            </form>
-            <button type="button" @click="log_register" class="swap">Go Register</button>
-            
-        </section>
-            
-        <section class="forms" v-if="!isLog">
-        
-            <form class="login" @submit.prevent="register" >
-                <h2>Register</h2>
-                <input type="email" placeholder="Email address" v-model="register_form.email" />
-                <input type="password" placeholder="Password" v-model="register_form.password" />
-                <input type="submit" value="Sign Up" />
-             
-            </form>
+    <main>
 
-            <button type="button" @click="log_register" class="swap">Go Login</button>
-        </section>
-        
+        <section class="forms">
+
+
+            <form class="login" @submit.prevent="sub_value">
+                <h2>Welcome </h2>
+                <div class="switch-wrapper">
+                   <a href="#" class="form-switcher" :class="isLog ? 'selected': 'unselected'" @click="isLog = true" >Log In</a><a href="#"
+                        class="form-switcher" :class="!isLog ? 'selected': 'unselected'" @click="isLog = false" >Sign Up</a>
+                </div>
+                <input type="email" placeholder="you@email.com" v-model="form_input.email" />
+                <input type="password" placeholder="Password" v-model="form_input.password" />
+                <input v-if="isLog" type="submit" value="Log In" />
+                <input v-else type="submit" value="Sign Up" :disabled="!isChecked"/>
+            </form>
+            <label for="checkbox" v-if="!isLog"> 
+                    <input type="checkbox" name="checkbox" v-model="isChecked">
+                    <span>this is a policy</span>
+                </label>
            
-            <!-- <div >
-                <router-link to="/register" id="toRegister">Go Register </router-link>
-            </div> -->
 
-        
+
+        </section>
+
+
+
+
+
+
     </main>
 </template>
 
 <script setup>
-// import { nextTick } from 'process';
-import { ref } from 'vue'
+import { ref, computed ,watch} from 'vue'
 import { useStore } from 'vuex'
-const login_title = ref('Login')
-const login_form = ref({});
-const register_form = ref({});
+
 const store = useStore();
+
+const form_input = ref({});
 const isLog = ref(false)
+const isChecked = ref(false)
 
 
 
-const log_register = ()=>{
-    isLog.value = !isLog.value
-    if (isLog) {
-        login_title.value = 'Login'
+watch(isChecked, ()=>{
+    console.log(isChecked.value);
+})
+
+
+const sub_value = () => {
+    if (isLog.value) {
+        console.log('login......');
+        store.dispatch('login', form_input.value);
     } else {
-        login_title.value = 'Sign Up'
+        console.log('signing......');
+        store.dispatch('register', form_input.value);
     }
-
 }
 
-const login = () => {
-    store.dispatch('login', login_form.value);
-}
-const register = () => {
-    store.dispatch('register', register_form.value);
-}
+
+
+
+
 
 </script>
 
 <style scoped>
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 
 
-.forms , h2{
+.forms,
+h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-items:center ;
-    
+    justify-items: center;
+
 
 }
 
@@ -89,7 +97,7 @@ h2 {
     margin-bottom: 2rem;
 }
 
-input {
+input:not([type="checkbox"]) {
     appearance: none;
     border: none;
     outline: none;
@@ -97,7 +105,8 @@ input {
 
     display: block;
     width: 100%;
-    min-width: 400px; /*  */
+    min-width: 400px;
+    /*  */
     margin: 0 auto;
     font-size: 1.5rem;
     margin-bottom: 2rem;
@@ -109,6 +118,12 @@ input:not([type="submit"]) {
     transition: 0.4s;
 }
 
+input[type="checkbox"]{
+    color: var(--primary-color);
+    border:none ;
+}
+
+
 input:focus:not([type="submit"]) {
     opacity: 1;
 }
@@ -117,26 +132,55 @@ input::placeholder {
     color: inherit;
 }
 
-
-form.login input:not([type="submit"]) {
-    color:  var(--text-color);
-    border-bottom: 2px solid var(--primary-color-light);
+input:disabled{
+    background-color: black !important ;
+    cursor:not-allowed !important;
 }
 
-form.login input[type="submit"],
-.swap {
+/* form.login input:not([type="submit"]) {
+    color: var(--text-color);
+    border-bottom: 2px solid var(--primary-color-light);
+} */
+
+form.login input[type="submit"] {
     border: none;
     background-color: var(--primary-color);
-    color:var(--main-color);
+    color: var(--main-color);
     font-weight: 700;
     padding: 1rem 2rem;
     border-radius: 0.5rem;
-    cursor: pointer;
     text-transform: uppercase;
+    cursor: pointer;
     text-decoration: none;
 }
 
-.swap{
-    width: 150px; ;
+/* switcher style */
+
+.switch-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.form-switcher {
+    border-bottom: 2px solid whitesmoke;
+    text-align: center;
+    width: 50%;
+    margin-bottom: 2%;
+}
+
+a {
+    cursor: default;
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+a.selected{
+    
+    border-bottom: 2px solid var(--primary-color);
+}
+
+a.unselected{
+    cursor: pointer;
 }
 </style>

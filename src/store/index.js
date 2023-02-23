@@ -24,9 +24,7 @@ export default createStore({
       state.user = null
     },
 
-    STORE_USERS(state, value) {
-      state.users = value
-    }
+    
 
   },
   actions: {

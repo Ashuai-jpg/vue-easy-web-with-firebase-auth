@@ -4,9 +4,9 @@
 
             <h3 class="title">Search Github Users</h3>
             <div class="searchbar">
-                <input type="text" placeholder="Press enter after input" v-model.lazy="keyword" class="search input"
-                    @keydown.enter="searchUsers">&nbsp;
-                <button @click="randomCol" class="search button "  :style="{ backgroundColor: ranCol }">Search</button>
+                <input type="text" placeholder="Press enter after input" v-model="keyword" class="search input"
+                    @keydown.enter="getUser">&nbsp;
+                <button @click="getUser" class="search button " >Search</button>
                 <!-- <button @keydown.enter="state.count++">{{state.count}}</button> -->
             </div>
         </div>
@@ -22,62 +22,54 @@
         <footer class="footer">
             <h3>This is a footer</h3>
         </footer>
-</section>
+    </section>
 </template>
 
 
 <script setup>
-import { ref, reactive ,onMounted,watch} from 'vue'
-import { useStore } from 'vuex';
-import axios from 'axios';
+import { ref, reactive, onMounted, watch } from 'vue'
+import { searchUsers } from '../../utils/axios';
 
 
 
 const keyword = ref('')
-const ranCol = ref('var(--btn-color)')
-const store = useStore()
-let number = ref(1)
+
 const state = reactive({
     users: [],
     count: 0
 })
 
 // random color logic
-function random(number){
-    return Math.floor(Math.random()*(number+1))
-}
-
-function randomCol (){
-     ranCol.value = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')'
-}
 // 
 
 
 
 
 
-// search user logic
-async function searchUsers() {
-   await axios.get(`https://api.github.com/search/users?q=${keyword.value}`).then(
-        response => {
-            console.log('Request success', response.data.items)
-            state.users = response.data.items
-            store.commit('STORE_USERS', state.users.value)
-        },
-        error => {
-            console.log('Bad request', response.data)
-        }
-    )
+
+function getUser() {
+    searchUsers(keyword.value)
+    .then(res => {
+        console.log(res);
+        state.users = res;
+    })
+    
 }
-
-
-
-
-
-
-
-
-
+// search user logic
+//  function searchUsers() {
+//     console.log(keyword.value);
+//     return axios.get(`https://api.github.com/search/users?q=${keyword.value}`).then(
+//         response => {
+//             console.log('Request success', response.data.items)
+//             state.users = response.data.items
+//             // return response.data.items
+//             store.commit('STORE_USERS', state.users.value)
+//         },
+//         error => {
+//             console.log('Bad request', response.data)
+//         }
+//     )
+// }
 
 
 
@@ -112,9 +104,9 @@ section {
     position: sticky;
     top: 0;
     flex-direction: column;
-    border-bottom: 2px solid  var( --sidebar-color);
-    box-shadow: 0 2px 2px var( --sidebar-color) ;
-    margin: 5% 0 1% 0 ;
+    border-bottom: 2px solid var(--sidebar-color);
+    box-shadow: 0 2px 2px var(--sidebar-color);
+    margin: 5% 0 1% 0;
     background-color: var(--main-color);
     width: 100%;
 }
@@ -149,9 +141,10 @@ section {
 
 }
 
-img:hover{
+img:hover {
     opacity: 0.5;
 }
+
 .card {
     display: inherit;
     flex-direction: column;
@@ -163,18 +156,18 @@ img:hover{
 
 }
 
-.footer{
+.footer {
     height: 5%;
     width: 100%;
     text-align: center;
     text-shadow: 2px 2px 3px grey;
     position: fixed;
     bottom: 0;
-    border-top: 2px solid  var( --sidebar-color);
-    box-shadow: 0 2px 2px var( --sidebar-color) ;
-    background-color:  var(--main-color) ;
+    border-top: 2px solid var(--sidebar-color);
+    box-shadow: 0 2px 2px var(--sidebar-color);
+    background-color: var(--main-color);
     opacity: 0.8;
     transition: var(--tran-05);
-    
+
 }
 </style>
