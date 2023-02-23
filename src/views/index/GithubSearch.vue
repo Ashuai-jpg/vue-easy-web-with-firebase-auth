@@ -23,7 +23,7 @@
             </div>
         </div>
         <footer class="footer">
-            <h3>This is a footer</h3>
+            <h3>This is an open API provided by  <a href="https://github.com/" target="_blank">Github</a></h3>
         </footer>
     </section>
 </template>
@@ -36,7 +36,7 @@ import { searchUsers } from '../../utils/axios';
 
 
 const keyword = ref('')
-const res = ref({})
+// const res = ref({})
 const state = reactive({
     users: [],
     count: 0
@@ -119,7 +119,7 @@ section {
     height: 3px;
     width: 0%;
     background-color:  var(--primary-color);
-    transition: all 0.3s ease-out;
+    transition: all 0.3s ease-in-out;
 }
 .input-wrapper:hover  #search-decor
 {

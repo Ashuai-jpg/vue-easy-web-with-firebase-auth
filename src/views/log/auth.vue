@@ -12,15 +12,14 @@
                 </div>
                 <input type="email" placeholder="you@email.com" v-model="form_input.email" />
                 <input type="password" placeholder="Password" v-model="form_input.password" />
+                <!-- simple and clean code of log-in / sign-up (with policy confirmation) -->
                 <input v-if="isLog" type="submit" value="Log In" />
-                <input v-else type="submit" value="Sign Up" :disabled="!isChecked"/>
+                <input v-else type="submit" value="Sign Up" :disabled="!PolicyIsChecked"/>
             </form>
             <label for="checkbox" v-if="!isLog"> 
-                    <input type="checkbox" name="checkbox" v-model="isChecked">
-                    <span>    <dfn>this is a <abbr title="Just check the fucking box and go login">policy </abbr> </dfn>  </span>
+                    <input type="checkbox" name="checkbox" v-model="PolicyIsChecked">
+                    <span>  this is a  <dfn> <abbr title="Just check the fucking box and go login">policy </abbr> </dfn> </span>
                 </label>
-           
-
 
         </section>
 
@@ -33,19 +32,19 @@
 </template>
 
 <script setup>
-import { ref, computed ,watch} from 'vue'
+import { ref, watch} from 'vue'
 import { useStore } from 'vuex'
 
 const store = useStore();
 
 const form_input = ref({});
 const isLog = ref(true)
-const isChecked = ref(false)
+const PolicyIsChecked = ref(false)
 
 
 
-watch(isChecked, ()=>{
-    console.log(isChecked.value);
+watch(PolicyIsChecked, ()=>{
+    console.log(PolicyIsChecked.value);
 })
 
 
@@ -113,7 +112,7 @@ input:not([type="checkbox"]) {
 }
 
 input:not([type="submit"]) {
-    opacity: 0.8;
+    opacity: 0.5;
     transition: 0.4s;
 }
 
@@ -136,10 +135,11 @@ input:disabled{
     cursor:not-allowed !important;
 }
 
-/* form.login input:not([type="submit"]) {
+form.login input:not([type="submit"]) {
     color: var(--text-color);
-    border-bottom: 2px solid var(--primary-color-light);
-} */
+    border: 3px solid var(--primary-color);
+    border-radius: 5px;
+}
 
 form.login input[type="submit"] {
     border: none;

@@ -127,20 +127,26 @@
 
 
 <script setup>
-import { Search, DataAnalysis, LocationInformation, PieChart, Star, Wallet, SwitchButton, Moon, Sunny, ArrowRightBold, Tickets } from '@element-plus/icons-vue'
+import { Search, 
+    DataAnalysis, 
+    LocationInformation, 
+    PieChart, Star, Wallet, 
+    SwitchButton, Moon, Sunny, 
+    ArrowRightBold, Tickets } from '@element-plus/icons-vue'
 import { ref } from 'vue';
 const isClose = ref(false)
 const isDark = ref(false)
 
 
 const toggleDarkMode = () => {
-    isDark.value = !isDark.value;
+    isDark.value = !isDark.value
     localStorage.setItem('isDark', isDark.value);
 }
 
 
 let localIsDark = localStorage.getItem('isDark');
 isDark.value = localIsDark !== null && localIsDark === 'true';
+
 
 </script>
 

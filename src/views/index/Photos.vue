@@ -5,7 +5,7 @@
             <h1>Image gallery example</h1>
             <div class="full-img">
                 <div class="overlay"  :style="{ opacity}">
-                    <img class="displayed-img" :src="state.imageLinks[selectedImage]">
+                    <img class="displayed-img" :src="state.imageLinks[selectedImage]" :alt="state.alts[selectedImage]">
                     <button class="dark" @click="switchDarken">{{btnText}}</button>
                 </div>
             </div>
@@ -29,14 +29,13 @@ const btnText = ref('Faden')
 
 
 onMounted(()=>{
-    selectedImage.value = localStorage.getItem('selectedImage')
+    selectedImage.value = Number(localStorage.getItem('selectedImage'))
 })
 
 
 
 watch(selectedImage, newVal => {
 	localStorage.setItem('selectedImage', newVal)
-    console.log(newVal);
 
 }, { deep: true })
 
@@ -48,6 +47,13 @@ const state = reactive({
         '/images/pic3.jpg',
         '/images/pic4.jpg',
         '/images/pic5.jpg'],
+        alts:[
+            {'pic1.jpg' : 'Closeup of a human eye'},
+            {'pic2.jpg' : 'Rock that looks like a wave'},
+            {'pic3.jpg' : 'Purple and white pansies'},
+            {'pic4.jpg' : 'Section of wall from a pharoah\'s tomb'},
+            {'pic5.jpg' : 'Large moth on a leaf'}
+        ]
     //    alts : {
     //   'pic1.jpg' : 'Closeup of a human eye',
     //   'pic2.jpg' : 'Rock that looks like a wave',

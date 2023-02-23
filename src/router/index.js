@@ -40,13 +40,19 @@ const routes = [
 
   {
     path: "/index",
-    alias: '/',
+    alias:'/',
+    redirect:'/index/index',
     name: "index",
     // route level code-splitting
     // this generates a separate chunk (About.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/index/NavTransplant.vue'),
     children:[
+      {
+        
+        path: 'index', 
+        component:()=>import('../views/index/index.vue')
+      },
       {
         path: 'todolist',
         component: ()=> import('../views/index/TodoList.vue')
