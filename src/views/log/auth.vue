@@ -17,7 +17,7 @@
             </form>
             <label for="checkbox" v-if="!isLog"> 
                     <input type="checkbox" name="checkbox" v-model="isChecked">
-                    <span>this is a policy</span>
+                    <span>    <dfn>this is a <abbr title="Just check the fucking box and go login">policy </abbr> </dfn>  </span>
                 </label>
            
 
