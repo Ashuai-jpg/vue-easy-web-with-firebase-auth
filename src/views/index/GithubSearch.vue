@@ -113,7 +113,7 @@ section {
 }
 
 
-/* underscore */
+/* underscore with hover transition */
 #search-decor {
     margin-top: 0;
     height: 3px;
@@ -121,7 +121,6 @@ section {
     background-color:  var(--primary-color);
     transition: all 0.3s ease-out;
 }
-
 .input-wrapper:hover  #search-decor
 {
     width: 100%;
