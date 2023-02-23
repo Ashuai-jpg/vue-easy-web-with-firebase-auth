@@ -4,8 +4,11 @@
 
             <h3 class="title">Search Github Users</h3>
             <div class="searchbar">
-                <input type="text" placeholder="Press enter after input" v-model="keyword" class="search input"
-                    @keydown.enter="getUser">&nbsp;
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Press enter after input" v-model="keyword" class="search input"
+                        @keydown.enter="getUser">
+                    <span  id="search-decor"></span>
+                </div>&nbsp;
                 <button @click="getUser" class="search button " >Search</button>
                 <!-- <button @keydown.enter="state.count++">{{state.count}}</button> -->
             </div>
@@ -27,20 +30,20 @@
 
 
 <script setup>
-import { ref, reactive, onMounted, watch } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { searchUsers } from '../../utils/axios';
 
 
 
 const keyword = ref('')
-
+const res = ref({})
 const state = reactive({
     users: [],
     count: 0
 })
-
-// random color logic
-// 
+onMounted(()=>{
+   state.users =  JSON.parse(localStorage.getItem('gitusers_info') || '')
+})
 
 
 
@@ -50,26 +53,11 @@ const state = reactive({
 function getUser() {
     searchUsers(keyword.value)
     .then(res => {
-        console.log(res);
         state.users = res;
+        localStorage.setItem('gitusers_info', JSON.stringify(res))
     })
     
 }
-// search user logic
-//  function searchUsers() {
-//     console.log(keyword.value);
-//     return axios.get(`https://api.github.com/search/users?q=${keyword.value}`).then(
-//         response => {
-//             console.log('Request success', response.data.items)
-//             state.users = response.data.items
-//             // return response.data.items
-//             store.commit('STORE_USERS', state.users.value)
-//         },
-//         error => {
-//             console.log('Bad request', response.data)
-//         }
-//     )
-// }
 
 
 
@@ -81,6 +69,8 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: var(--main-color);
+    transition: var(--tran-05);
 }
 
 /* title and search */
@@ -116,10 +106,29 @@ section {
     font-size: larger;
 }
 
-.input {
-    color: var(--text-color);
-    border-bottom: 3px solid var(--main-text);
+
+.input-wrapper{
+    display: flex;
+    flex-direction: column;
 }
+
+
+/* underscore */
+#search-decor {
+    margin-top: 0;
+    height: 3px;
+    width: 0%;
+    background-color:  var(--primary-color);
+    transition: all 0.3s ease-out;
+}
+
+.input-wrapper:hover  #search-decor
+{
+    width: 100%;
+}
+/*  */
+
+
 
 .button {
     color: var(--btn-text);
@@ -128,6 +137,10 @@ section {
     cursor: pointer;
     background-color: var(--btn-color);
 }
+
+
+
+
 
 
 
