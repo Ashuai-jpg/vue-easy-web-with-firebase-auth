@@ -9,7 +9,7 @@
                         @keydown.enter="getUser">
                     <span  id="search-decor"></span>
                 </div>&nbsp;
-                <button @click="getUser" class="search button " >Search</button>
+                <button @click="getUser" class="search button " >{{Search_txt}}</button>
                 <!-- <button @keydown.enter="state.count++">{{state.count}}</button> -->
             </div>
         </div>
@@ -36,7 +36,9 @@ import { searchUsers } from '../../utils/axios';
 
 
 const keyword = ref('')
-// const res = ref({})
+const Search_txt = ref('Search')
+
+
 const state = reactive({
     users: [],
     count: 0
@@ -51,10 +53,12 @@ onMounted(()=>{
 
 
 function getUser() {
+    Search_txt.value = 'ing...'
     searchUsers(keyword.value)
     .then(res => {
         state.users = res;
         localStorage.setItem('gitusers_info', JSON.stringify(res))
+        Search_txt.value = 'Search'
     })
     
 }
@@ -132,6 +136,7 @@ section {
 .button {
     color: var(--btn-text);
     padding: 4px;
+    min-width: 75px;
     border-radius: 5px;
     cursor: pointer;
     background-color: var(--btn-color);

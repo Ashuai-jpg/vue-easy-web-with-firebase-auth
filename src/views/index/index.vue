@@ -2,7 +2,7 @@
 
     <section>
         <h2>This just an Index page.</h2>
-        <h2>Can't wait to hit the <em>nav-bar</em> !</h2>
+        <h2>Can't wait to hit the <em>nav-bar</em>&nbsp;!</h2>
 
     </section>
 
