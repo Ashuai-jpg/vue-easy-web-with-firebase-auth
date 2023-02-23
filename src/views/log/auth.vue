@@ -39,7 +39,7 @@ import { useStore } from 'vuex'
 const store = useStore();
 
 const form_input = ref({});
-const isLog = ref(false)
+const isLog = ref(true)
 const isChecked = ref(false)
 
 
@@ -102,15 +102,14 @@ input:not([type="checkbox"]) {
     border: none;
     outline: none;
     background: none;
-
     display: block;
     width: 100%;
     min-width: 400px;
-    /*  */
     margin: 0 auto;
     font-size: 1.5rem;
     margin-bottom: 2rem;
     padding: 0.5rem 0rem;
+    transition: background-color 0.4s ease-out; /* color transition when policy is checked */
 }
 
 input:not([type="submit"]) {
@@ -133,7 +132,7 @@ input::placeholder {
 }
 
 input:disabled{
-    background-color: black !important ;
+    background-color:gray !important ;
     cursor:not-allowed !important;
 }
 
