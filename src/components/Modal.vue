@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-content">
+    <div class="modal-content" >
         <h2>{{ dfp.msg }}</h2>
         <p>shabi</p>
         <p>{{ dfp.title }}</p>
@@ -13,7 +13,12 @@
 
 <script setup>
 
-import { defineProps } from 'vue';
+import { defineProps, defineEmits, ref } from 'vue';
+
+const isOpen = ref(true)
+
+
+
 
 
 const dfp = defineProps({
@@ -21,10 +26,10 @@ const dfp = defineProps({
     msg:String
 })
 
-defineEmits("close")
-setTimeout(() => {
-    console.log(`Title from parent: ${dfp.title} \nmsg from parent: ${dfp.msg}`);
-}, 3000);
+defineEmits('close')
+// setTimeout(() => {
+//     console.log(`Title from parent: {${dfp.title}} \nmsg from parent: {${dfp.msg}}`);
+// }, 3000);
 
 </script>
 
@@ -42,6 +47,7 @@ setTimeout(() => {
 button{
     all: initial;
     text-align: center;
+    font-weight: 800;
     background-color: var(--main-color);
     margin-top: 5%;
     padding: 5%;

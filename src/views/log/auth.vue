@@ -35,7 +35,7 @@
             
             </div>
             <div class="modal" v-if="isOpen">
-                <Modal
+                <Modal 
                 title="Title here"
                 msg="Message here"
                 @close="isOpen=false"
@@ -206,6 +206,7 @@ a.unselected{
 
 /* Modal style */
 .modal-btn{
+    /* button wrapper */
     position:absolute;
     top: 0;
     left: 0;
@@ -236,6 +237,7 @@ a.unselected{
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
