@@ -101,7 +101,8 @@ section {
     border-bottom: 2px solid var(--sidebar-color);
     box-shadow: 0 2px 2px var(--sidebar-color);
     margin: 5% 0 1% 0;
-    background-color: var(--main-color);
+    backdrop-filter: blur(5px);
+    /* background-color: var(--main-color); */
     width: 100%;
 }
 
@@ -123,9 +124,9 @@ section {
     height: 3px;
     width: 0%;
     background-color:  var(--primary-color);
-    transition: all 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out;
 }
-.input-wrapper:hover  #search-decor
+.input:hover + #search-decor
 {
     width: 100%;
 }
@@ -182,8 +183,8 @@ img:hover {
     bottom: 0;
     border-top: 2px solid var(--sidebar-color);
     box-shadow: 0 2px 2px var(--sidebar-color);
-    background-color: var(--main-color);
-    opacity: 0.8;
+    /* background-color: var(--main-color); */
+    backdrop-filter: blur(5px);
     transition: var(--tran-05);
 
 }

@@ -1,6 +1,6 @@
 <template >
     <main>
-
+        
         <section class="forms">
 
 
@@ -21,7 +21,27 @@
                     <span>  this is a  <dfn> <abbr title="Just check the fucking box and go login">policy </abbr> </dfn> </span>
                 </label>
 
+
+
         </section>
+        <Teleport to="body">
+            <div class="modal-btn">
+            <span>Using <em>&lt;Teleport&gt;</em>  to 
+                <button id="mdBtn" 
+                @click="isOpen=true">
+                Show Modal
+            </button>
+                 popup</span>
+            
+            </div>
+            <div class="modal" v-if="isOpen">
+                <Modal
+                title="Title here"
+                msg="Message here"
+                @close="isOpen=false"
+                />
+            </div>
+        </Teleport>
 
 
 
@@ -34,13 +54,14 @@
 <script setup>
 import { ref, watch} from 'vue'
 import { useStore } from 'vuex'
+import  Modal from '../../components/Modal.vue'
 
 const store = useStore();
 
 const form_input = ref({});
 const isLog = ref(true)
+const isOpen = ref(false)
 const PolicyIsChecked = ref(false)
-
 
 
 watch(PolicyIsChecked, ()=>{
@@ -181,5 +202,46 @@ a.selected{
 
 a.unselected{
     cursor: pointer;
+}
+
+/* Modal style */
+.modal-btn{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#mdBtn{
+    outline: none;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+#mdBtn:active{
+    color: aliceblue;
+    background-color: var(--text-color);
+}
+
+
+.modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal > div{
+    background-color: aliceblue;
+    padding: 50px;
+    border-radius: 10px;
 }
 </style>
